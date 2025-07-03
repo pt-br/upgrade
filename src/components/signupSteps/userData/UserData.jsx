@@ -1,22 +1,27 @@
-import React from 'react';
-import { Input, Button, Typography } from 'antd';
-
-import { StyledForm, StyledCard } from './UserData.style';
+import { useCallback } from 'react';
+import { Input, Button, Typography, notification } from 'antd';
 import { useNavigate } from 'react-router-dom';
 
 import { SignupStep } from '@/pages/signup/Signup.model';
 
+import { StyledForm, StyledCard } from './UserData.style';
+
 export const UserData = ({ form }) => {
   const navigate = useNavigate();
 
-  const handleNext = async () => {
+  const handleNext = useCallback(async () => {
     try {
       await form.validateFields(['firstName', 'email', 'password']);
       navigate(SignupStep.MORE_INFO);
     } catch (error) {
-      console.log('### error:', error);
+      notification.error({
+        message: 'Your signup failed',
+        description: error?.message || 'Please fill in your data correctly.',
+        duration: 3,
+        placement: 'top',
+      });
     }
-  };
+  }, [form, navigate]);
 
   return (
     <>

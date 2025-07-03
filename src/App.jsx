@@ -1,5 +1,5 @@
-import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { ConfigProvider } from 'antd';
 
 import { Signup } from '@/pages/signup';
 
@@ -27,5 +27,15 @@ export const App = () => {
     },
   ]);
 
-  return <RouterProvider router={router} />;
+  return (
+    <ConfigProvider
+      theme={{
+        token: {
+          colorPrimary: '#4b9d2d',
+        },
+      }}
+    >
+      <RouterProvider router={router} />
+    </ConfigProvider>
+  );
 };
