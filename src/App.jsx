@@ -1,35 +1,35 @@
 import React, { useEffect } from 'react';
-import { upgradeApi } from '@/apis/upgradeApi';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-const App = () => {
-  const { useGetColorsQuery, useSubmitFormMutation } = upgradeApi;
+import { Signup } from '@/pages/signup';
+import { MoreInfo } from '@/pages/moreInfo';
+import { Confirmation } from '@/pages/confirmation';
+import { Success } from '@/pages/success';
+import { Error } from '@/pages/error';
 
-  const { data, isFetching: isFetchingColors } = useGetColorsQuery();
-  const [submitForm, { isLoading, error, isSuccess }] = useSubmitFormMutation();
+export const App = () => {
+  const router = createBrowserRouter([
+    {
+      path: '/',
+      element: <Signup />,
+    },
+    {
+      path: '/more-info',
+      element: <MoreInfo />,
+    },
+    {
+      path: '/confirmation',
+      element: <Confirmation />,
+    },
+    {
+      path: '/success',
+      element: <Success />,
+    },
+    {
+      path: '/error',
+      element: <Error />,
+    },
+  ]);
 
-  // useEffect(() => {
-  //   submitForm({
-  //     name: 'test',
-  //     email: 'test@test.com',
-  //     password: 'pwd',
-  //     color: 'red',
-  //     terms: true,
-  //   });
-  // }, []);
-
-  console.log('### data', data);
-  console.log('### isFetchingColors', isFetchingColors);
-
-  return (
-    <div>
-      <header>
-        <h1>Welcome to Upgrade challenge</h1>
-      </header>
-      <p>
-        To get started, edit <code>src/App.jsx</code> and save to reload.
-      </p>
-    </div>
-  );
+  return <RouterProvider router={router} />;
 };
-
-export default App;
