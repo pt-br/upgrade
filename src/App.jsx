@@ -1,6 +1,14 @@
-import React, { Component } from "react";
+import React from 'react';
+import { upgradeApi } from '@/apis/upgradeApi';
 
 const App = () => {
+  const { useGetColorsQuery } = upgradeApi;
+
+  const { data, isFetching: isFetchingColors } = useGetColorsQuery();
+
+  console.log('### data', data);
+  console.log('### isFetchingColors', isFetchingColors);
+
   return (
     <div>
       <header>
