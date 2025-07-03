@@ -1,11 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import { Signup } from '@/pages/signup';
-import { MoreInfo } from '@/pages/moreInfo';
-import { Confirmation } from '@/pages/confirmation';
-import { Success } from '@/pages/success';
-import { Error } from '@/pages/error';
 
 export const App = () => {
   const router = createBrowserRouter([
@@ -15,19 +11,19 @@ export const App = () => {
     },
     {
       path: '/more-info',
-      element: <MoreInfo />,
+      element: <Signup />,
     },
     {
       path: '/confirmation',
-      element: <Confirmation />,
+      element: <Signup />,
     },
     {
       path: '/success',
-      element: <Success />,
+      element: <Signup />,
     },
     {
       path: '/error',
-      element: <Error />,
+      element: <Signup />,
     },
   ]);
 

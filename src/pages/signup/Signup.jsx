@@ -1,33 +1,29 @@
-import React, { useEffect } from 'react';
-import { upgradeApi } from '@/apis/upgradeApi';
+import React from 'react';
+import { useLocation } from 'react-router-dom';
+
+import upgradeLogo from '@/assets/upgradeLogo.svg';
+
+import { UserData } from '@/components/signupSteps/userData';
+import { MoreInfo } from '@/components/signupSteps/moreInfo';
+import { Confirmation } from '@/components/signupSteps/confirmation';
+import { Success } from '@/components/signupSteps/success';
+import { Error } from '@/components/signupSteps/error';
+
+import { SignupStep } from './Signup.model';
+import { SignupContainer, Logo } from './Signup.style';
 
 export const Signup = () => {
-  const { useGetColorsQuery, useSubmitFormMutation } = upgradeApi;
-
-  const { data, isFetching: isFetchingColors } = useGetColorsQuery();
-  const [submitForm, { isLoading, error, isSuccess }] = useSubmitFormMutation();
-
-  // useEffect(() => {
-  //   submitForm({
-  //     name: 'test',
-  //     email: 'test@test.com',
-  //     password: 'pwd',
-  //     color: 'red',
-  //     terms: true,
-  //   });
-  // }, []);
-
-  console.log('### data', data);
-  console.log('### isFetchingColors', isFetchingColors);
+  const { pathname } = useLocation();
+  console.log('### pathname', pathname);
 
   return (
-    <div>
-      <header>
-        <h1>SIGNUP</h1>
-      </header>
-      <p>
-        To get started, edit <code>src/App.jsx</code> and save to reload.
-      </p>
-    </div>
+    <SignupContainer>
+      <Logo src={upgradeLogo} alt="upgrade logo" />
+      {pathname === SignupStep.USER_DATA && <UserData />}
+      {pathname === SignupStep.MORE_INFO && <MoreInfo />}
+      {pathname === SignupStep.CONFIRMATION && <Confirmation />}
+      {pathname === SignupStep.SUCCESS && <Success />}
+      {pathname === SignupStep.ERROR && <Error />}
+    </SignupContainer>
   );
 };
