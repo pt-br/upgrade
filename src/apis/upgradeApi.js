@@ -9,5 +9,14 @@ export const upgradeApi = createApi({
         url: `/colors`,
       }),
     }),
+    submitForm: builder.mutation({
+      query: (formData) => ({
+        url: '/submit',
+        method: 'POST',
+        body: formData,
+      }),
+    }),
   }),
 });
+
+export const { useGetColorsQuery, useSubmitFormMutation } = upgradeApi;

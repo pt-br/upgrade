@@ -1,10 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { upgradeApi } from '@/apis/upgradeApi';
 
 const App = () => {
-  const { useGetColorsQuery } = upgradeApi;
+  const { useGetColorsQuery, useSubmitFormMutation } = upgradeApi;
 
   const { data, isFetching: isFetchingColors } = useGetColorsQuery();
+  const [submitForm, { isLoading, error, isSuccess }] = useSubmitFormMutation();
+
+  useEffect(() => {
+    submitForm({
+      name: 'test',
+      email: 'test@test.com',
+      password: 'pwd',
+      color: 'red',
+      terms: true,
+    });
+  }, []);
 
   console.log('### data', data);
   console.log('### isFetchingColors', isFetchingColors);
