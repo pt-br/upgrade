@@ -7,15 +7,15 @@ const App = () => {
   const { data, isFetching: isFetchingColors } = useGetColorsQuery();
   const [submitForm, { isLoading, error, isSuccess }] = useSubmitFormMutation();
 
-  useEffect(() => {
-    submitForm({
-      name: 'test',
-      email: 'test@test.com',
-      password: 'pwd',
-      color: 'red',
-      terms: true,
-    });
-  }, []);
+  // useEffect(() => {
+  //   submitForm({
+  //     name: 'test',
+  //     email: 'test@test.com',
+  //     password: 'pwd',
+  //     color: 'red',
+  //     terms: true,
+  //   });
+  // }, []);
 
   console.log('### data', data);
   console.log('### isFetchingColors', isFetchingColors);
