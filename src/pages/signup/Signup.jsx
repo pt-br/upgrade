@@ -1,5 +1,6 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
+import { Form } from 'antd';
 
 import upgradeLogo from '@/assets/upgradeLogo.svg';
 
@@ -14,16 +15,16 @@ import { SignupContainer, Logo } from './Signup.style';
 
 export const Signup = () => {
   const { pathname } = useLocation();
-  console.log('### pathname', pathname);
+  const [form] = Form.useForm();
 
   return (
     <SignupContainer>
       <Logo src={upgradeLogo} alt="upgrade logo" />
-      {pathname === SignupStep.USER_DATA && <UserData />}
-      {pathname === SignupStep.MORE_INFO && <MoreInfo />}
-      {pathname === SignupStep.CONFIRMATION && <Confirmation />}
-      {pathname === SignupStep.SUCCESS && <Success />}
-      {pathname === SignupStep.ERROR && <Error />}
+      {pathname === SignupStep.USER_DATA && <UserData form={form} />}
+      {pathname === SignupStep.MORE_INFO && <MoreInfo form={form} />}
+      {pathname === SignupStep.CONFIRMATION && <Confirmation form={form} />}
+      {pathname === SignupStep.SUCCESS && <Success form={form} />}
+      {pathname === SignupStep.ERROR && <Error form={form} />}
     </SignupContainer>
   );
 };

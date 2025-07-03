@@ -6,14 +6,23 @@ import { useNavigate } from 'react-router-dom';
 
 import { SignupStep } from '@/pages/signup/Signup.model';
 
-export const UserData = () => {
+export const UserData = ({ form }) => {
   const navigate = useNavigate();
+
+  const handleNext = async () => {
+    try {
+      await form.validateFields(['firstName', 'email', 'password']);
+      navigate(SignupStep.MORE_INFO);
+    } catch (error) {
+      console.log('### error:', error);
+    }
+  };
 
   return (
     <>
       <Typography.Title level={3}>Sign Up</Typography.Title>
       <StyledCard>
-        <StyledForm layout="vertical">
+        <StyledForm form={form} layout="vertical">
           <StyledForm.Item
             label="First Name"
             name="firstName"
@@ -55,7 +64,7 @@ export const UserData = () => {
               htmlType="button"
               block
               size="large"
-              onClick={() => navigate(SignupStep.MORE_INFO)}
+              onClick={handleNext}
             >
               Next
             </Button>
