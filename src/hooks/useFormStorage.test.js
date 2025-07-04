@@ -1,6 +1,8 @@
 import { renderHook, act } from '@testing-library/react';
+
+import { mockFormData } from '@/pages/UserData/UserData.mock.js';
+
 import { useFormStorage } from './useFormStorage';
-import { mockFormData } from '../pages/UserData/UserData.mock.js';
 
 const createMockForm = () => ({
   setFieldsValue: jest.fn(),

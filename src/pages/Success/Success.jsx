@@ -6,6 +6,8 @@ import { useSignupFormContext } from '@/contexts';
 import { SignupStep } from '@/constants';
 import { StyledCard } from '@/components/PageWrapper/PageWrapper.style';
 
+import { testIds } from './Success.model';
+
 export const Success = () => {
   const navigate = useNavigate();
 
@@ -29,6 +31,7 @@ export const Success = () => {
               key="restart"
               size="large"
               onClick={handleRestart}
+              test-id={testIds.restartButton}
             >
               Restart
             </Button>,
