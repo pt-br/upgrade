@@ -3,14 +3,18 @@ import { Input, Button, Typography, notification } from 'antd';
 import { useNavigate } from 'react-router-dom';
 
 import { useSignupFormContext } from '@/contexts';
+import { SignupStep } from '@/constants/SignupStep';
 
-import { SignupStep } from '@/pages/signup/Signup.model';
-import { StyledForm, StyledCard } from '@/pages/signup/Signup.style';
+import {
+  StyledForm,
+  StyledCard,
+} from '@/components/PageWrapper/PageWrapper.style';
 
 export const UserData = () => {
   const navigate = useNavigate();
 
-  const { form, handleFieldChange, validateAndProceed } = useSignupFormContext();
+  const { form, handleFieldChange, validateAndProceed } =
+    useSignupFormContext();
 
   const handleNext = useCallback(async () => {
     const result = await validateAndProceed(['firstName', 'email', 'password']);

@@ -4,13 +4,17 @@ import { LoadingOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 
 import { useSignupFormContext } from '@/contexts';
+import { SignupStep } from '@/constants/SignupStep';
 import { useGetColorsQuery } from '@/apis/upgradeApi';
 
-import { SignupStep } from '@/pages/signup/Signup.model';
-import { StyledForm, StyledCard } from '@/pages/signup/Signup.style';
+import {
+  StyledForm,
+  StyledCard,
+} from '@/components/PageWrapper/PageWrapper.style';
 
 export const MoreInfo = () => {
-  const { form, handleFieldChange, validateAndProceed } = useSignupFormContext();
+  const { form, handleFieldChange, validateAndProceed } =
+    useSignupFormContext();
 
   const navigate = useNavigate();
 

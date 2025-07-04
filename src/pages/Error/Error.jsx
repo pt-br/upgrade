@@ -3,9 +3,9 @@ import { Button, Result } from 'antd';
 import { useNavigate } from 'react-router-dom';
 
 import { useSignupFormContext } from '@/contexts';
+import { SignupStep } from '@/constants/SignupStep';
 
-import { SignupStep } from '@/pages/signup/Signup.model';
-import { StyledCard } from '@/pages/signup/Signup.style';
+import { StyledCard } from '@/components/PageWrapper/PageWrapper.style';
 
 export const Error = () => {
   const navigate = useNavigate();
