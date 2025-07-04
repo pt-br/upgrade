@@ -1,12 +1,22 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import { createRoot } from "react-dom/client";
-import App from "./App";
+import { render } from '@testing-library/react';
+import { Provider } from 'react-redux';
+import { configureStore } from '@reduxjs/toolkit';
+import { upgradeApi } from '@/apis/upgradeApi';
+import { App } from './App';
 
-it("renders without crashing", () => {
-  const div = document.createElement("div");
-  const root = createRoot(div);
+const mockStore = configureStore({
+  reducer: {
+    [upgradeApi.reducerPath]: upgradeApi.reducer,
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(upgradeApi.middleware),
+});
 
-  root.render(<App />);
-  root.unmount(div);
+it('renders without crashing', () => {
+  render(
+    <Provider store={mockStore}>
+      <App />
+    </Provider>
+  );
+  expect(document.body).toBeInTheDocument();
 });
