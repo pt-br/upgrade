@@ -1,11 +1,93 @@
-import React from 'react';
+import { useCallback } from 'react';
+import { Button, Typography, Descriptions, Spin, notification } from 'antd';
+import { useNavigate } from 'react-router-dom';
+
+import { useSignupFormContext } from '@/contexts';
+import { useSubmitFormMutation } from '@/apis/upgradeApi';
+
+import { SignupStep } from '@/pages/signup/Signup.model';
+import { StyledCard } from '@/pages/signup/Signup.style';
 
 export const Confirmation = () => {
+  const navigate = useNavigate();
+
+  const { formData, clearFormData } = useSignupFormContext();
+
+  const [submitFormMutation, { isLoading }] = useSubmitFormMutation();
+
+  const handleBack = useCallback(() => {
+    navigate(SignupStep.MORE_INFO);
+  }, [navigate]);
+
+  const handleSubmit = useCallback(async () => {
+    try {
+      const submitData = {
+        name: formData.firstName,
+        email: formData.email,
+        password: formData.password,
+        color: formData.color,
+        terms: formData.terms,
+      };
+
+      await submitFormMutation(submitData).unwrap();
+
+      clearFormData();
+      navigate(SignupStep.SUCCESS);
+    } catch (error) {
+      notification.error({
+        key: 'error-confirmation',
+        message: 'Your signup failed',
+        description: error?.message,
+        duration: 3,
+        placement: 'top',
+      });
+      navigate(SignupStep.ERROR);
+    }
+  }, [formData, submitFormMutation, clearFormData, navigate]);
+
   return (
-    <div>
-      <header>
-        <h1>Confirmation</h1>
-      </header>
-    </div>
+    <>
+      <Typography.Title level={3}>Confirmation</Typography.Title>
+      <StyledCard>
+        <Descriptions column={1} bordered>
+          <Descriptions.Item label="First Name">
+            {formData.firstName}
+          </Descriptions.Item>
+          <Descriptions.Item label="Email">{formData.email}</Descriptions.Item>
+          <Descriptions.Item label="Password">
+            {'•'.repeat(8)}
+          </Descriptions.Item>
+          <Descriptions.Item label="Favorite Color">
+            {formData.color}
+          </Descriptions.Item>
+          <Descriptions.Item label="Terms Accepted">
+            {formData.terms ? 'Yes' : 'No'}
+          </Descriptions.Item>
+        </Descriptions>
+
+        <div style={{ display: 'flex', gap: '8px', marginTop: '24px' }}>
+          <Button
+            htmlType="button"
+            block
+            size="large"
+            onClick={handleBack}
+            style={{ flex: 1 }}
+          >
+            Back
+          </Button>
+          <Button
+            type="primary"
+            htmlType="button"
+            block
+            size="large"
+            onClick={handleSubmit}
+            loading={isLoading}
+            style={{ flex: 1 }}
+          >
+            {isLoading ? <Spin size="small" /> : 'Submit'}
+          </Button>
+        </div>
+      </StyledCard>
+    </>
   );
 };

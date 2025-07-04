@@ -3,13 +3,17 @@ import { Button, Typography, Select, Checkbox, notification } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 
+import { useSignupFormContext } from '@/contexts';
 import { useGetColorsQuery } from '@/apis/upgradeApi';
 
-import { StyledForm, StyledCard } from '../userData/UserData.style';
 import { SignupStep } from '@/pages/signup/Signup.model';
+import { StyledForm, StyledCard } from '@/pages/signup/Signup.style';
 
-export const MoreInfo = ({ form }) => {
+export const MoreInfo = () => {
+  const { form, handleFieldChange, validateAndProceed } = useSignupFormContext();
+
   const navigate = useNavigate();
+
   const {
     data: colors,
     isLoading: isLoadingColors,
@@ -20,6 +24,7 @@ export const MoreInfo = ({ form }) => {
   useEffect(() => {
     if (errorColors) {
       notification.error({
+        key: 'error-colors',
         message: 'Failed to load colors',
         description: (
           <a
@@ -43,6 +48,7 @@ export const MoreInfo = ({ form }) => {
   useEffect(() => {
     if (isLoadingColors) {
       notification.info({
+        key: 'loading-colors',
         message: 'Loading colors',
         placement: 'top',
         icon: <LoadingOutlined />,
@@ -55,20 +61,22 @@ export const MoreInfo = ({ form }) => {
   }, [isLoadingColors]);
 
   const handleNext = useCallback(async () => {
-    try {
-      await form.validateFields(['color', 'terms']);
+    const result = await validateAndProceed(['color', 'terms']);
+
+    if (result.success) {
       navigate(SignupStep.CONFIRMATION);
-    } catch (error) {
+    } else {
       notification.error({
+        key: 'error-more-info',
         message: 'Your signup failed',
         description:
-          error?.message ||
+          result.error?.message ||
           'Please select your favorite color and accept the terms.',
         duration: 3,
         placement: 'top',
       });
     }
-  }, [form, navigate]);
+  }, [validateAndProceed, navigate]);
 
   const handleBack = useCallback(() => {
     navigate(SignupStep.USER_DATA);
@@ -76,9 +84,13 @@ export const MoreInfo = ({ form }) => {
 
   return (
     <>
-      <Typography.Title level={3}>More Information</Typography.Title>
+      <Typography.Title level={3}>Additional Info</Typography.Title>
       <StyledCard>
-        <StyledForm form={form} layout="vertical">
+        <StyledForm
+          form={form}
+          layout="vertical"
+          onValuesChange={handleFieldChange}
+        >
           <StyledForm.Item
             name="color"
             rules={[

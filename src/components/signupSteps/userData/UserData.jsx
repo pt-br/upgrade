@@ -2,32 +2,42 @@ import { useCallback } from 'react';
 import { Input, Button, Typography, notification } from 'antd';
 import { useNavigate } from 'react-router-dom';
 
+import { useSignupFormContext } from '@/contexts';
+
 import { SignupStep } from '@/pages/signup/Signup.model';
+import { StyledForm, StyledCard } from '@/pages/signup/Signup.style';
 
-import { StyledForm, StyledCard } from './UserData.style';
-
-export const UserData = ({ form }) => {
+export const UserData = () => {
   const navigate = useNavigate();
 
+  const { form, handleFieldChange, validateAndProceed } = useSignupFormContext();
+
   const handleNext = useCallback(async () => {
-    try {
-      await form.validateFields(['firstName', 'email', 'password']);
+    const result = await validateAndProceed(['firstName', 'email', 'password']);
+
+    if (result.success) {
       navigate(SignupStep.MORE_INFO);
-    } catch (error) {
+    } else {
       notification.error({
+        key: 'error-user-data',
         message: 'Your signup failed',
-        description: error?.message || 'Please fill in your data correctly.',
+        description:
+          result.error?.message || 'Please fill in your data correctly.',
         duration: 3,
         placement: 'top',
       });
     }
-  }, [form, navigate]);
+  }, [validateAndProceed, navigate]);
 
   return (
     <>
       <Typography.Title level={3}>Sign Up</Typography.Title>
       <StyledCard>
-        <StyledForm form={form} layout="vertical">
+        <StyledForm
+          form={form}
+          layout="vertical"
+          onValuesChange={handleFieldChange}
+        >
           <StyledForm.Item
             label="First Name"
             name="firstName"
