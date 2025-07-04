@@ -3,7 +3,37 @@ import '@testing-library/jest-dom';
 
 import { TextEncoder, TextDecoder } from 'util';
 
-/* global global */
+jest.mock('antd', () => ({
+  ...jest.requireActual('antd'),
+  notification: {
+    error: jest.fn(),
+    success: jest.fn(),
+    warning: jest.fn(),
+    info: jest.fn(),
+  },
+}));
+
+const mockNavigate = jest.fn();
+
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useNavigate: () => mockNavigate,
+}));
+
+global.mockNavigate = mockNavigate;
+
+const localStorageMock = {
+  getItem: jest.fn(),
+  setItem: jest.fn(),
+  removeItem: jest.fn(),
+  clear: jest.fn(),
+};
+
+Object.defineProperty(window, 'localStorage', {
+  value: localStorageMock,
+});
+
+global.localStorageMock = localStorageMock;
 if (typeof global !== 'undefined') {
   global.TextEncoder = TextEncoder;
   global.TextDecoder = TextDecoder;
@@ -12,7 +42,6 @@ if (typeof global !== 'undefined') {
   window.TextDecoder = TextDecoder;
 }
 
-// Mock window.matchMedia for Ant Design responsive components
 if (typeof window !== 'undefined' && !window.matchMedia) {
   window.matchMedia = () => ({
     matches: false,
@@ -24,7 +53,6 @@ if (typeof window !== 'undefined' && !window.matchMedia) {
   });
 }
 
-// Mock fetch for Redux Toolkit Query
 if (typeof global !== 'undefined' && !global.fetch) {
   global.fetch = jest.fn(() =>
     Promise.resolve({

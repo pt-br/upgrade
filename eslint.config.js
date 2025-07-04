@@ -49,10 +49,13 @@ export default [
     },
   },
   {
-    files: ['**/*.test.jsx', '**/*.test.js'],
+    files: ['**/*.test.jsx', '**/*.test.js', 'setup-tests.js'],
     languageOptions: {
       globals: {
         ...globals.jest,
+        global: 'readonly',
+        mockNavigate: 'readonly',
+        localStorageMock: 'readonly',
       },
     },
   },
