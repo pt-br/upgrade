@@ -20,7 +20,22 @@ export const StyledForm = styled(Form)`
   gap: 5px;
 `;
 
+export const StyledFormItem = styled(Form.Item).withConfig({
+  shouldForwardProp: (prop) => prop !== 'noMargin',
+})`
+  ${({ noMargin }) => noMargin && 'margin-bottom: 0;'}
+`;
+
 export const StyledCard = styled(Card)`
   min-width: 350px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+`;
+
+export const CTAWrapper = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== 'marginTop',
+})`
+  display: flex;
+  gap: 8px;
+
+  ${({ marginTop }) => marginTop && 'margin-top: 24px;'}
 `;

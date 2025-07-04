@@ -3,10 +3,11 @@ import { Input, Button, Typography, notification } from 'antd';
 import { useNavigate } from 'react-router-dom';
 
 import { useSignupFormContext } from '@/contexts';
-import { SignupStep } from '@/constants/SignupStep';
+import { SignupStep } from '@/constants';
 
 import {
   StyledForm,
+  StyledFormItem,
   StyledCard,
 } from '@/components/PageWrapper/PageWrapper.style';
 
@@ -41,8 +42,9 @@ export const UserData = () => {
           form={form}
           layout="vertical"
           onValuesChange={handleFieldChange}
+          onFinish={handleNext}
         >
-          <StyledForm.Item
+          <StyledFormItem
             label="First Name"
             name="firstName"
             rules={[
@@ -50,8 +52,8 @@ export const UserData = () => {
             ]}
           >
             <Input placeholder="First Name" size="large" />
-          </StyledForm.Item>
-          <StyledForm.Item
+          </StyledFormItem>
+          <StyledFormItem
             label="E-mail"
             name="email"
             rules={[
@@ -63,8 +65,8 @@ export const UserData = () => {
             ]}
           >
             <Input placeholder="E-mail" size="large" type="email" />
-          </StyledForm.Item>
-          <StyledForm.Item
+          </StyledFormItem>
+          <StyledFormItem
             label="Password"
             name="password"
             rules={[
@@ -76,18 +78,12 @@ export const UserData = () => {
             ]}
           >
             <Input.Password placeholder="Password" size="large" />
-          </StyledForm.Item>
-          <StyledForm.Item style={{ marginBottom: 0 }}>
-            <Button
-              type="primary"
-              htmlType="button"
-              block
-              size="large"
-              onClick={handleNext}
-            >
+          </StyledFormItem>
+          <StyledFormItem noMargin>
+            <Button type="primary" htmlType="submit" block size="large">
               Next
             </Button>
-          </StyledForm.Item>
+          </StyledFormItem>
         </StyledForm>
       </StyledCard>
     </>

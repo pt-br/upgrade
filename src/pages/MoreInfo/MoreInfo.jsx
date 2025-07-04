@@ -1,15 +1,17 @@
-import { useEffect, useCallback } from 'react';
+import { useEffect, useCallback, useMemo } from 'react';
 import { Button, Typography, Select, Checkbox, notification } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 
 import { useSignupFormContext } from '@/contexts';
-import { SignupStep } from '@/constants/SignupStep';
+import { SignupStep } from '@/constants';
 import { useGetColorsQuery } from '@/apis/upgradeApi';
 
 import {
   StyledForm,
+  StyledFormItem,
   StyledCard,
+  CTAWrapper,
 } from '@/components/PageWrapper/PageWrapper.style';
 
 export const MoreInfo = () => {
@@ -86,6 +88,14 @@ export const MoreInfo = () => {
     navigate(SignupStep.USER_DATA);
   }, [navigate]);
 
+  const colorOptions = useMemo(() => {
+    return colors?.map((color) => (
+      <Select.Option key={color} value={color}>
+        {color}
+      </Select.Option>
+    ));
+  }, [colors]);
+
   return (
     <>
       <Typography.Title level={3}>Additional Info</Typography.Title>
@@ -95,7 +105,7 @@ export const MoreInfo = () => {
           layout="vertical"
           onValuesChange={handleFieldChange}
         >
-          <StyledForm.Item
+          <StyledFormItem
             name="color"
             rules={[
               { required: true, message: 'Please select your favorite color' },
@@ -107,14 +117,10 @@ export const MoreInfo = () => {
               loading={isLoadingColors}
               disabled={isLoadingColors || errorColors}
             >
-              {colors?.map((color) => (
-                <Select.Option key={color} value={color}>
-                  {color}
-                </Select.Option>
-              ))}
+              {colorOptions}
             </Select>
-          </StyledForm.Item>
-          <StyledForm.Item
+          </StyledFormItem>
+          <StyledFormItem
             name="terms"
             valuePropName="checked"
             rules={[
@@ -127,16 +133,10 @@ export const MoreInfo = () => {
             ]}
           >
             <Checkbox>I agree to the terms and conditions</Checkbox>
-          </StyledForm.Item>
-          <StyledForm.Item style={{ marginBottom: 0 }}>
-            <div style={{ display: 'flex', gap: '8px' }}>
-              <Button
-                htmlType="button"
-                block
-                size="large"
-                onClick={handleBack}
-                style={{ flex: 1 }}
-              >
+          </StyledFormItem>
+          <StyledFormItem noMargin>
+            <CTAWrapper>
+              <Button htmlType="button" block size="large" onClick={handleBack}>
                 Back
               </Button>
               <Button
@@ -145,14 +145,13 @@ export const MoreInfo = () => {
                 block
                 size="large"
                 onClick={handleNext}
-                style={{ flex: 1 }}
                 loading={isLoadingColors}
                 disabled={isLoadingColors || errorColors}
               >
                 Next
               </Button>
-            </div>
-          </StyledForm.Item>
+            </CTAWrapper>
+          </StyledFormItem>
         </StyledForm>
       </StyledCard>
     </>

@@ -3,10 +3,13 @@ import { Button, Typography, Descriptions, Spin, notification } from 'antd';
 import { useNavigate } from 'react-router-dom';
 
 import { useSignupFormContext } from '@/contexts';
-import { SignupStep } from '@/constants/SignupStep';
+import { SignupStep } from '@/constants';
 import { useSubmitFormMutation } from '@/apis/upgradeApi';
 
-import { StyledCard } from '@/components/PageWrapper/PageWrapper.style';
+import {
+  StyledCard,
+  CTAWrapper,
+} from '@/components/PageWrapper/PageWrapper.style';
 
 export const Confirmation = () => {
   const navigate = useNavigate();
@@ -65,14 +68,8 @@ export const Confirmation = () => {
           </Descriptions.Item>
         </Descriptions>
 
-        <div style={{ display: 'flex', gap: '8px', marginTop: '24px' }}>
-          <Button
-            htmlType="button"
-            block
-            size="large"
-            onClick={handleBack}
-            style={{ flex: 1 }}
-          >
+        <CTAWrapper marginTop>
+          <Button htmlType="button" block size="large" onClick={handleBack}>
             Back
           </Button>
           <Button
@@ -82,11 +79,11 @@ export const Confirmation = () => {
             size="large"
             onClick={handleSubmit}
             loading={isLoading}
-            style={{ flex: 1 }}
+            disabled={isLoading}
           >
             {isLoading ? <Spin size="small" /> : 'Submit'}
           </Button>
-        </div>
+        </CTAWrapper>
       </StyledCard>
     </>
   );

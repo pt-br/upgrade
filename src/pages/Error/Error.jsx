@@ -3,7 +3,7 @@ import { Button, Result } from 'antd';
 import { useNavigate } from 'react-router-dom';
 
 import { useSignupFormContext } from '@/contexts';
-import { SignupStep } from '@/constants/SignupStep';
+import { SignupStep } from '@/constants';
 
 import { StyledCard } from '@/components/PageWrapper/PageWrapper.style';
 
