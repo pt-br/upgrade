@@ -9,6 +9,7 @@ import { useGetColorsQuery } from '@/apis/upgradeApi';
 
 import { MoreInfo } from './MoreInfo';
 import { testIds } from './MoreInfo.model';
+import { mockColors } from './MoreInfo.mock';
 
 const TestWrapper = ({ children }) => (
   <BrowserRouter>
@@ -17,8 +18,6 @@ const TestWrapper = ({ children }) => (
 );
 
 describe('MoreInfo page', () => {
-  const mockColors = ['red', 'blue', 'green', 'yellow'];
-
   beforeEach(() => {
     jest.clearAllMocks();
     global.localStorageMock.getItem.mockReturnValue(null);

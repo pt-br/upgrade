@@ -8,6 +8,7 @@ import { SignupFormProvider } from '@/providers/SignupFormProvider';
 
 import { UserData } from './UserData';
 import { testIds } from './UserData.model';
+import { mockFormData } from './UserData.mock';
 
 const TestWrapper = ({ children }) => (
   <BrowserRouter>
@@ -34,9 +35,9 @@ describe('UserData page', () => {
     const emailInput = screen.getByTestId(testIds.emailInput);
     const passwordInput = screen.getByTestId(testIds.passwordInput);
 
-    await userEvent.type(firstNameInput, 'Upgrade');
-    await userEvent.type(emailInput, 'test@upgrade.com');
-    await userEvent.type(passwordInput, 'password123');
+    await userEvent.type(firstNameInput, mockFormData.firstName);
+    await userEvent.type(emailInput, mockFormData.email);
+    await userEvent.type(passwordInput, mockFormData.password);
   };
 
   describe('Form validations', () => {
@@ -47,8 +48,8 @@ describe('UserData page', () => {
       const passwordInput = screen.getByTestId(testIds.passwordInput);
       const submitButton = screen.getByTestId(testIds.submitButton);
 
-      await userEvent.type(emailInput, 'test@upgrade.com');
-      await userEvent.type(passwordInput, 'password123');
+      await userEvent.type(emailInput, mockFormData.email);
+      await userEvent.type(passwordInput, mockFormData.password);
 
       await userEvent.click(submitButton);
 
@@ -70,9 +71,9 @@ describe('UserData page', () => {
       const passwordInput = screen.getByTestId(testIds.passwordInput);
       const submitButton = screen.getByTestId(testIds.submitButton);
 
-      await userEvent.type(firstNameInput, 'Upgrade');
+      await userEvent.type(firstNameInput, mockFormData.firstName);
       await userEvent.type(emailInput, 'invalid-email');
-      await userEvent.type(passwordInput, 'password123');
+      await userEvent.type(passwordInput, mockFormData.password);
 
       await userEvent.click(submitButton);
 
@@ -94,8 +95,8 @@ describe('UserData page', () => {
       const passwordInput = screen.getByTestId(testIds.passwordInput);
       const submitButton = screen.getByTestId(testIds.submitButton);
 
-      await userEvent.type(firstNameInput, 'Upgrade');
-      await userEvent.type(emailInput, 'test@upgrade.com');
+      await userEvent.type(firstNameInput, mockFormData.firstName);
+      await userEvent.type(emailInput, mockFormData.email);
       await userEvent.type(passwordInput, '123');
 
       await userEvent.click(submitButton);
@@ -117,8 +118,8 @@ describe('UserData page', () => {
       const passwordInput = screen.getByTestId(testIds.passwordInput);
       const submitButton = screen.getByTestId(testIds.submitButton);
 
-      await userEvent.type(firstNameInput, 'Upgrade');
-      await userEvent.type(passwordInput, 'password123');
+      await userEvent.type(firstNameInput, mockFormData.firstName);
+      await userEvent.type(passwordInput, mockFormData.password);
 
       await userEvent.click(submitButton);
 
@@ -139,8 +140,8 @@ describe('UserData page', () => {
       const emailInput = screen.getByTestId(testIds.emailInput);
       const submitButton = screen.getByTestId(testIds.submitButton);
 
-      await userEvent.type(firstNameInput, 'Upgrade');
-      await userEvent.type(emailInput, 'test@upgrade.com');
+      await userEvent.type(firstNameInput, mockFormData.firstName);
+      await userEvent.type(emailInput, mockFormData.email);
 
       await userEvent.click(submitButton);
 
@@ -177,7 +178,7 @@ describe('UserData page', () => {
       const passwordInput = screen.getByTestId(testIds.passwordInput);
       const submitButton = screen.getByTestId(testIds.submitButton);
 
-      await userEvent.type(firstNameInput, 'Upgrade');
+      await userEvent.type(firstNameInput, mockFormData.firstName);
       await userEvent.click(submitButton);
 
       await waitFor(() => {
@@ -189,7 +190,7 @@ describe('UserData page', () => {
         ).toBeInTheDocument();
       });
 
-      await userEvent.type(emailInput, 'test@upgrade.com');
+      await userEvent.type(emailInput, mockFormData.email);
       await userEvent.type(passwordInput, '123');
       await userEvent.click(submitButton);
 
@@ -199,7 +200,7 @@ describe('UserData page', () => {
         ).toBeInTheDocument();
       });
 
-      await userEvent.type(passwordInput, 'password123');
+      await userEvent.type(passwordInput, mockFormData.password);
       await userEvent.click(submitButton);
 
       await waitFor(() => {

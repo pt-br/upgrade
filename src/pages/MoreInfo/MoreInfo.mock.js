@@ -1,0 +1,1 @@
+export const mockColors = ['red', 'blue', 'green', 'yellow']; 

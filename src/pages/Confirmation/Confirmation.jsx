@@ -9,6 +9,7 @@ import {
   StyledCard,
   CTAWrapper,
 } from '@/components/PageWrapper/PageWrapper.style';
+import { testIds } from './Confirmation.model';
 
 export const Confirmation = () => {
   const navigate = useNavigate();
@@ -52,17 +53,17 @@ export const Confirmation = () => {
       <Typography.Title level={3}>Confirmation</Typography.Title>
       <StyledCard>
         <Descriptions column={1} bordered>
-          <Descriptions.Item label="First Name">
+          <Descriptions.Item label="First Name" test-id={testIds.firstNameField}>
             {formData.firstName}
           </Descriptions.Item>
-          <Descriptions.Item label="Email">{formData.email}</Descriptions.Item>
-          <Descriptions.Item label="Password">
+          <Descriptions.Item label="Email" test-id={testIds.emailField}>{formData.email}</Descriptions.Item>
+          <Descriptions.Item label="Password" test-id={testIds.passwordField}>
             {'•'.repeat(8)}
           </Descriptions.Item>
-          <Descriptions.Item label="Favorite Color">
+          <Descriptions.Item label="Favorite Color" test-id={testIds.colorField}>
             {formData.color}
           </Descriptions.Item>
-          <Descriptions.Item label="Terms Accepted">
+          <Descriptions.Item label="Terms Accepted" test-id={testIds.termsField}>
             {formData.terms ? 'Yes' : 'No'}
           </Descriptions.Item>
         </Descriptions>
@@ -75,6 +76,7 @@ export const Confirmation = () => {
             onClick={handleBack}
             loading={isLoading}
             disabled={isLoading}
+            test-id={testIds.backButton}
           >
             Back
           </Button>
@@ -86,6 +88,7 @@ export const Confirmation = () => {
             onClick={handleSubmit}
             loading={isLoading}
             disabled={isLoading}
+            test-id={testIds.submitButton}
           >
             {isLoading ? <Spin size="small" /> : 'Submit'}
           </Button>

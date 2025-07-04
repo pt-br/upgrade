@@ -23,6 +23,7 @@ jest.mock('react-router-dom', () => ({
 
 jest.mock('@/apis/upgradeApi', () => ({
   useGetColorsQuery: jest.fn(),
+  useSubmitFormMutation: jest.fn(),
 }));
 
 global.mockNavigate = mockNavigate;
