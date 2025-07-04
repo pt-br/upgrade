@@ -7,6 +7,7 @@ import { SignupStep } from '@/constants';
 import { SignupFormProvider } from '@/providers/SignupFormProvider';
 
 import { UserData } from './UserData';
+import { testIds } from './UserData.model';
 
 const TestWrapper = ({ children }) => (
   <BrowserRouter>
@@ -29,9 +30,9 @@ describe('UserData page', () => {
   };
 
   const fillValidForm = async () => {
-    const firstNameInput = screen.getByPlaceholderText('First Name');
-    const emailInput = screen.getByPlaceholderText('E-mail');
-    const passwordInput = screen.getByPlaceholderText('Password');
+    const firstNameInput = screen.getByTestId(testIds.firstNameInput);
+    const emailInput = screen.getByTestId(testIds.emailInput);
+    const passwordInput = screen.getByTestId(testIds.passwordInput);
 
     await userEvent.type(firstNameInput, 'Upgrade');
     await userEvent.type(emailInput, 'test@upgrade.com');
@@ -42,9 +43,9 @@ describe('UserData page', () => {
     it('should not submit form when firstName is empty', async () => {
       renderUserData();
 
-      const emailInput = screen.getByPlaceholderText('E-mail');
-      const passwordInput = screen.getByPlaceholderText('Password');
-      const submitButton = screen.getByRole('button', { name: /next/i });
+      const emailInput = screen.getByTestId(testIds.emailInput);
+      const passwordInput = screen.getByTestId(testIds.passwordInput);
+      const submitButton = screen.getByTestId(testIds.submitButton);
 
       await userEvent.type(emailInput, 'test@upgrade.com');
       await userEvent.type(passwordInput, 'password123');
@@ -64,10 +65,10 @@ describe('UserData page', () => {
     it('should not submit form when email is invalid', async () => {
       renderUserData();
 
-      const firstNameInput = screen.getByPlaceholderText('First Name');
-      const emailInput = screen.getByPlaceholderText('E-mail');
-      const passwordInput = screen.getByPlaceholderText('Password');
-      const submitButton = screen.getByRole('button', { name: /next/i });
+      const firstNameInput = screen.getByTestId(testIds.firstNameInput);
+      const emailInput = screen.getByTestId(testIds.emailInput);
+      const passwordInput = screen.getByTestId(testIds.passwordInput);
+      const submitButton = screen.getByTestId(testIds.submitButton);
 
       await userEvent.type(firstNameInput, 'Upgrade');
       await userEvent.type(emailInput, 'invalid-email');
@@ -88,10 +89,10 @@ describe('UserData page', () => {
     it('should not submit form when password is too short', async () => {
       renderUserData();
 
-      const firstNameInput = screen.getByPlaceholderText('First Name');
-      const emailInput = screen.getByPlaceholderText('E-mail');
-      const passwordInput = screen.getByPlaceholderText('Password');
-      const submitButton = screen.getByRole('button', { name: /next/i });
+      const firstNameInput = screen.getByTestId(testIds.firstNameInput);
+      const emailInput = screen.getByTestId(testIds.emailInput);
+      const passwordInput = screen.getByTestId(testIds.passwordInput);
+      const submitButton = screen.getByTestId(testIds.submitButton);
 
       await userEvent.type(firstNameInput, 'Upgrade');
       await userEvent.type(emailInput, 'test@upgrade.com');
@@ -112,9 +113,9 @@ describe('UserData page', () => {
     it('should not submit form when email is empty', async () => {
       renderUserData();
 
-      const firstNameInput = screen.getByPlaceholderText('First Name');
-      const passwordInput = screen.getByPlaceholderText('Password');
-      const submitButton = screen.getByRole('button', { name: /next/i });
+      const firstNameInput = screen.getByTestId(testIds.firstNameInput);
+      const passwordInput = screen.getByTestId(testIds.passwordInput);
+      const submitButton = screen.getByTestId(testIds.submitButton);
 
       await userEvent.type(firstNameInput, 'Upgrade');
       await userEvent.type(passwordInput, 'password123');
@@ -134,9 +135,9 @@ describe('UserData page', () => {
     it('should not submit form when password is empty', async () => {
       renderUserData();
 
-      const firstNameInput = screen.getByPlaceholderText('First Name');
-      const emailInput = screen.getByPlaceholderText('E-mail');
-      const submitButton = screen.getByRole('button', { name: /next/i });
+      const firstNameInput = screen.getByTestId(testIds.firstNameInput);
+      const emailInput = screen.getByTestId(testIds.emailInput);
+      const submitButton = screen.getByTestId(testIds.submitButton);
 
       await userEvent.type(firstNameInput, 'Upgrade');
       await userEvent.type(emailInput, 'test@upgrade.com');
@@ -160,7 +161,7 @@ describe('UserData page', () => {
 
       await fillValidForm();
 
-      const submitButton = screen.getByRole('button', { name: /next/i });
+      const submitButton = screen.getByTestId(testIds.submitButton);
       await userEvent.click(submitButton);
 
       await waitFor(() => {
@@ -173,10 +174,10 @@ describe('UserData page', () => {
     it('should only allow submission when form is completely valid', async () => {
       renderUserData();
 
-      const firstNameInput = screen.getByPlaceholderText('First Name');
-      const emailInput = screen.getByPlaceholderText('E-mail');
-      const passwordInput = screen.getByPlaceholderText('Password');
-      const submitButton = screen.getByRole('button', { name: /next/i });
+      const firstNameInput = screen.getByTestId(testIds.firstNameInput);
+      const emailInput = screen.getByTestId(testIds.emailInput);
+      const passwordInput = screen.getByTestId(testIds.passwordInput);
+      const submitButton = screen.getByTestId(testIds.submitButton);
 
       await userEvent.type(firstNameInput, 'Upgrade');
       await userEvent.click(submitButton);
@@ -214,7 +215,7 @@ describe('UserData page', () => {
     it('should show error notification with generic message when validation fails without specific error', async () => {
       renderUserData();
 
-      const submitButton = screen.getByRole('button', { name: /next/i });
+      const submitButton = screen.getByTestId(testIds.submitButton);
       await userEvent.click(submitButton);
 
       await waitFor(() => {

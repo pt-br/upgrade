@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 import { useSignupFormContext } from '@/contexts';
 import { SignupStep } from '@/constants';
 import { useGetColorsQuery } from '@/apis/upgradeApi';
-
 import {
   StyledForm,
   StyledFormItem,

@@ -4,12 +4,13 @@ import { useNavigate } from 'react-router-dom';
 
 import { useSignupFormContext } from '@/contexts';
 import { SignupStep } from '@/constants';
-
 import {
   StyledForm,
   StyledFormItem,
   StyledCard,
 } from '@/components/PageWrapper/PageWrapper.style';
+
+import { testIds } from './UserData.model';
 
 export const UserData = () => {
   const navigate = useNavigate();
@@ -51,7 +52,11 @@ export const UserData = () => {
               { required: true, message: 'Please enter your first name' },
             ]}
           >
-            <Input placeholder="First Name" size="large" />
+            <Input
+              placeholder="First Name"
+              size="large"
+              test-id={testIds.firstNameInput}
+            />
           </StyledFormItem>
           <StyledFormItem
             label="E-mail"
@@ -64,7 +69,12 @@ export const UserData = () => {
               },
             ]}
           >
-            <Input placeholder="E-mail" size="large" type="email" />
+            <Input
+              placeholder="E-mail"
+              size="large"
+              type="email"
+              test-id={testIds.emailInput}
+            />
           </StyledFormItem>
           <StyledFormItem
             label="Password"
@@ -77,10 +87,20 @@ export const UserData = () => {
               },
             ]}
           >
-            <Input.Password placeholder="Password" size="large" />
+            <Input.Password
+              placeholder="Password"
+              size="large"
+              test-id={testIds.passwordInput}
+            />
           </StyledFormItem>
           <StyledFormItem noMargin>
-            <Button type="primary" htmlType="submit" block size="large">
+            <Button
+              type="primary"
+              htmlType="submit"
+              block
+              size="large"
+              test-id={testIds.submitButton}
+            >
               Next
             </Button>
           </StyledFormItem>
