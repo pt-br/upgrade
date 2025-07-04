@@ -13,6 +13,8 @@ import {
   CTAWrapper,
 } from '@/components/PageWrapper/PageWrapper.style';
 
+import { testIds } from './MoreInfo.model';
+
 export const MoreInfo = () => {
   const { form, handleFieldChange, validateAndProceed } =
     useSignupFormContext();
@@ -115,6 +117,7 @@ export const MoreInfo = () => {
               size="large"
               loading={isLoadingColors}
               disabled={isLoadingColors || errorColors}
+              test-id={testIds.colorSelect}
             >
               {colorOptions}
             </Select>
@@ -131,11 +134,11 @@ export const MoreInfo = () => {
               },
             ]}
           >
-            <Checkbox>I agree to the terms and conditions</Checkbox>
+            <Checkbox test-id={testIds.termsCheckbox}>I agree to the terms and conditions</Checkbox>
           </StyledFormItem>
           <StyledFormItem noMargin>
             <CTAWrapper>
-              <Button htmlType="button" block size="large" onClick={handleBack}>
+              <Button htmlType="button" block size="large" onClick={handleBack} test-id={testIds.backButton}>
                 Back
               </Button>
               <Button
@@ -146,6 +149,7 @@ export const MoreInfo = () => {
                 onClick={handleNext}
                 loading={isLoadingColors}
                 disabled={isLoadingColors || errorColors}
+                test-id={testIds.nextButton}
               >
                 Next
               </Button>

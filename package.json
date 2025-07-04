@@ -41,7 +41,8 @@
     "start:dev": "vite",
     "start": "run-p start:*",
     "build": "vite build",
-    "test": "jest --watch"
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "browserslist": {
     "production": [

@@ -155,7 +155,7 @@ describe('UserData page', () => {
     });
   });
 
-  describe('Form submittion', () => {
+  describe('Form submission', () => {
     it('should submit form and navigate to next step when all fields are valid', async () => {
       renderUserData();
 

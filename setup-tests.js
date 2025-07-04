@@ -10,6 +10,7 @@ jest.mock('antd', () => ({
     success: jest.fn(),
     warning: jest.fn(),
     info: jest.fn(),
+    destroy: jest.fn(),
   },
 }));
 
@@ -18,6 +19,10 @@ const mockNavigate = jest.fn();
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
   useNavigate: () => mockNavigate,
+}));
+
+jest.mock('@/apis/upgradeApi', () => ({
+  useGetColorsQuery: jest.fn(),
 }));
 
 global.mockNavigate = mockNavigate;
