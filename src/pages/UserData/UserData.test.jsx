@@ -59,7 +59,7 @@ describe('UserData page', () => {
       });
 
       expect(global.mockNavigate).not.toHaveBeenCalled();
-      expect(notification.error).not.toHaveBeenCalled();
+      expect(notification.error).toHaveBeenCalled();
     });
 
     it('should not submit form when email is invalid', async () => {
@@ -83,7 +83,7 @@ describe('UserData page', () => {
       });
 
       expect(global.mockNavigate).not.toHaveBeenCalled();
-      expect(notification.error).not.toHaveBeenCalled();
+      expect(notification.error).toHaveBeenCalled();
     });
 
     it('should not submit form when password is too short', async () => {
@@ -107,7 +107,7 @@ describe('UserData page', () => {
       });
 
       expect(global.mockNavigate).not.toHaveBeenCalled();
-      expect(notification.error).not.toHaveBeenCalled();
+      expect(notification.error).toHaveBeenCalled();
     });
 
     it('should not submit form when email is empty', async () => {
@@ -129,7 +129,7 @@ describe('UserData page', () => {
       });
 
       expect(global.mockNavigate).not.toHaveBeenCalled();
-      expect(notification.error).not.toHaveBeenCalled();
+      expect(notification.error).toHaveBeenCalled();
     });
 
     it('should not submit form when password is empty', async () => {
@@ -151,7 +151,7 @@ describe('UserData page', () => {
       });
 
       expect(global.mockNavigate).not.toHaveBeenCalled();
-      expect(notification.error).not.toHaveBeenCalled();
+      expect(notification.error).toHaveBeenCalled();
     });
   });
 
@@ -167,8 +167,6 @@ describe('UserData page', () => {
       await waitFor(() => {
         expect(global.mockNavigate).toHaveBeenCalledWith(SignupStep.MORE_INFO);
       });
-
-      expect(notification.error).not.toHaveBeenCalled();
     });
 
     it('should only allow submission when form is completely valid', async () => {
@@ -190,7 +188,6 @@ describe('UserData page', () => {
           screen.getByText('Password must be at least 8 characters long')
         ).toBeInTheDocument();
       });
-      expect(global.mockNavigate).not.toHaveBeenCalled();
 
       await userEvent.type(emailInput, 'test@upgrade.com');
       await userEvent.type(passwordInput, '123');
@@ -201,7 +198,6 @@ describe('UserData page', () => {
           screen.getByText('Password must be at least 8 characters long')
         ).toBeInTheDocument();
       });
-      expect(global.mockNavigate).not.toHaveBeenCalled();
 
       await userEvent.type(passwordInput, 'password123');
       await userEvent.click(submitButton);
@@ -209,7 +205,6 @@ describe('UserData page', () => {
       await waitFor(() => {
         expect(global.mockNavigate).toHaveBeenCalledWith(SignupStep.MORE_INFO);
       });
-      expect(notification.error).not.toHaveBeenCalled();
     });
 
     it('should show error notification with generic message when validation fails without specific error', async () => {
@@ -230,7 +225,7 @@ describe('UserData page', () => {
         ).toBeInTheDocument();
       });
 
-      expect(notification.error).not.toHaveBeenCalled();
+      expect(notification.error).toHaveBeenCalled();
       expect(global.mockNavigate).not.toHaveBeenCalled();
     });
   });

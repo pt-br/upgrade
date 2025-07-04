@@ -134,11 +134,20 @@ export const MoreInfo = () => {
               },
             ]}
           >
-            <Checkbox test-id={testIds.termsCheckbox}>I agree to the terms and conditions</Checkbox>
+            <Checkbox test-id={testIds.termsCheckbox}>
+              I agree to the terms and conditions
+            </Checkbox>
           </StyledFormItem>
           <StyledFormItem noMargin>
             <CTAWrapper>
-              <Button htmlType="button" block size="large" onClick={handleBack} test-id={testIds.backButton}>
+              <Button
+                htmlType="button"
+                block
+                size="large"
+                onClick={handleBack}
+                test-id={testIds.backButton}
+                disabled={isLoadingColors}
+              >
                 Back
               </Button>
               <Button

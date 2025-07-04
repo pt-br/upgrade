@@ -68,7 +68,14 @@ export const Confirmation = () => {
         </Descriptions>
 
         <CTAWrapper marginTop>
-          <Button htmlType="button" block size="large" onClick={handleBack}>
+          <Button
+            htmlType="button"
+            block
+            size="large"
+            onClick={handleBack}
+            loading={isLoading}
+            disabled={isLoading}
+          >
             Back
           </Button>
           <Button

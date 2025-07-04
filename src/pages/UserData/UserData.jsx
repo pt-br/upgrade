@@ -97,6 +97,7 @@ export const UserData = () => {
             <Button
               type="primary"
               htmlType="submit"
+              onClick={handleNext}
               block
               size="large"
               test-id={testIds.submitButton}
